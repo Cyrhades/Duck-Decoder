@@ -2,8 +2,9 @@
 #  
 #  Description:   Python script to decode/ display usb rubber ducky inject.bin files
 #    Author(s):   JPaulMora (@jpaulmora) 
-#      Version:   0.1.c                
-#                                              Copyright (C) 2015  Juan Pablo Mora
+#                 LECOMTE Cyril <cyrhades76@gmail.com> (Python 3.13 compatibility)
+#      Version:   0.1.d                
+#                                              Copyright (C) 2015-2026
 #    
 #    This program is free software; you can redistribute it and/or modify
 #    it under the terms of the GNU General Public License as published by
@@ -33,7 +34,7 @@ args = sys.argv                # Returns a list of all arguments, including fine
 def hexstr(fn):                # This function makes use of binascii to read file in hex mode
 	with open(fn, 'rb') as f:
     		content = f.read()
-	Payload = (binascii.hexlify(content))
+	Payload = binascii.hexlify(content).decode('ascii')
 	return Payload
 
 def dsem(h, n):               # Here we take the hex bitstream and make a list of it in chunks specified by n ie. list = [1234] n=2 return = [12,34]
@@ -245,8 +246,8 @@ def letiscover(letters,type,mode):      # Function takes all the letter "C"odes 
 	return Result
 	
 def usage(reason, ecode):
-	print " Usage: " + str(args[0]) + " < display|decode > inject.bin\n\n Example: " + str(args[0]) + " display /Documents/inject.bin\n"
-	print reason + "\n"
+	print(" Usage: " + str(args[0]) + " < display|decode > inject.bin\n\n Example: " + str(args[0]) + " display /Documents/inject.bin\n")
+	print(reason + "\n")
 	sys.exit(ecode)
 	
 
@@ -275,6 +276,6 @@ if len(args) > 1 and len(args) < 5 :
 	
 		string = string + str(Result[i])
 
-	print string
+	print(string)
 else:
 	usage("",2)
